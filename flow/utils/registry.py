@@ -8,6 +8,8 @@ from copy import deepcopy
 import flow.envs
 from flow.core.params import InitialConfig
 from flow.core.params import TrafficLightParams
+from flow.core.params import VariableSpeedSign
+from flow.core.params import InductionLoop
 
 
 def make_create_env(params, version=0, render=None):
@@ -79,6 +81,8 @@ def make_create_env(params, version=0, render=None):
     net_params = params['net']
     initial_config = params.get('initial', InitialConfig())
     traffic_lights = params.get("tls", TrafficLightParams())
+    vss = params.get("vss", VariableSpeedSign())
+    idl = params.get("idl", InductionLoop())
 
     def create_env(*_):
         sim_params = deepcopy(params['sim'])
@@ -90,6 +94,8 @@ def make_create_env(params, version=0, render=None):
             net_params=net_params,
             initial_config=initial_config,
             traffic_lights=traffic_lights,
+            vss=vss,
+            idl=idl,
         )
 
         # accept new render type if not set to None

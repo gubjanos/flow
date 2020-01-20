@@ -724,6 +724,28 @@ class TraCIKernelNetwork(BaseKernelNetwork):
 
                     add.append(e)
 
+        if self.network.vss is not None:
+            if type(self.network.vss) == type(dict()):
+                xx = self.network.vss['_vss_list']
+            else:
+                xx = self.network.vss._vss_list
+            for vss in xx:
+                x = E("variableSpeedSign", **{'id': 'vss_{}'.format(vss['vss_id']), 'lanes': ' '.join(vss['lanes'])})
+                for entry in vss['steps']:
+                    x.append(E("step", **{'time': entry['time'], 'speed' : entry['speed']}))
+
+                add.append(x)
+
+        if self.network.idl is not None:
+            if type(self.network.idl) == type(dict()):
+                xx = self.network.idl['_inductionloop_list']
+            else:
+                xx = self.network.idl._inductionloop_list
+            for idl in xx:
+            #for idl in self.network.idl._inductionloop_list:
+                x = E("inductionLoop", **{"id": 'idl_{}'.format(idl['idl_id']), "lane":idl['lane'], "pos": idl['pos'], "freq" : idl['freq'], "file": idl['file_name']})
+                add.append(x)
+
         printxml(add, self.cfg_path + self.addfn)
 
         # this is the data that we will pass to the *.gui.cfg file

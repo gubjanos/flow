@@ -2,6 +2,8 @@
 
 from flow.core.params import InitialConfig
 from flow.core.params import TrafficLightParams
+from flow.core.params import VariableSpeedSign
+from flow.core.params import InductionLoop
 from flow.core.params import SumoCarFollowingParams
 from flow.core.params import SumoLaneChangeParams
 import time
@@ -311,7 +313,9 @@ class Network(object):
                  vehicles,
                  net_params,
                  initial_config=InitialConfig(),
-                 traffic_lights=TrafficLightParams()):
+                 traffic_lights=TrafficLightParams(),
+                 vss=VariableSpeedSign(),
+                 idl=InductionLoop()):
         """Instantiate the base network class.
 
         Attributes
@@ -334,6 +338,8 @@ class Network(object):
         self.net_params = net_params
         self.initial_config = initial_config
         self.traffic_lights = traffic_lights
+        self.vss = vss
+        self.idl = idl
 
         # specify routes vehicles can take
         self.routes = self.specify_routes(net_params)

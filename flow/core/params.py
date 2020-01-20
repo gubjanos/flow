@@ -1206,3 +1206,47 @@ class InFlows:
     def get(self):
         """Return the inflows of each edge."""
         return self.__flows
+
+
+class VariableSpeedSign:
+    """Variable speed sign
+
+    """
+
+    def __init__(self):
+        """Instantiate variable speed sign.
+
+        """
+        self._vss_list = []
+
+    def add(self,
+            vss_id,
+            lanes,
+            steps):
+        """Add a variable speed sign to the network.
+
+        """
+        self._vss_list.append({'vss_id' : vss_id, 'lanes': lanes, 'steps': steps})
+
+class InductionLoop:
+    """Induction Loop
+
+    """
+
+    def __init__(self):
+        """Instantiate an induction loop
+
+        """
+        self._inductionloop_list = []
+
+    def add(self,
+            idl_id,
+            lane,
+            pos,
+            freq="900",
+            file_name="out.xml"
+            ):
+        """Add an induction loop to the network.
+
+        """
+        self._inductionloop_list.append({'idl_id' : idl_id, 'lane': lane, 'pos' : pos, 'freq' : freq, 'file_name' : file_name})
